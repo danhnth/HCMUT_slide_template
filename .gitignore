@@ -1,0 +1,18 @@
+# File sinh ra khi biên dịch LaTeX
+*.aux
+*.log
+*.out
+*.nav
+*.snm
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*-blx.bib
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Giữ main.pdf hay không tùy bạn — bỏ comment dòng dưới nếu muốn bỏ qua:
+*.pdf

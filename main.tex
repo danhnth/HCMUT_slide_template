@@ -1,0 +1,235 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usefonttheme{structurebold}
+\usefonttheme[onlymath]{serif}
+
+% Màu chủ đạo của template (xanh BK). Đổi mã RGB nếu muốn màu khác.
+\definecolor{BKTemplate}{rgb}{0.11765, 0.30588, 0.47451}
+\usecolortheme[named=BKTemplate]{structure}
+\setbeamercolor{title}{fg=BKTemplate,bg=}
+\setbeamertemplate{caption}[numbered]
+
+%------------------------------------------------------------
+% Gói lệnh (packages). Biên dịch bằng pdfLaTeX.
+% Giữ nguyên bộ này để có sẵn công cụ cho hầu hết báo cáo.
+%------------------------------------------------------------
+\usepackage{amsmath}        % ký hiệu toán học, \mathbb ...
+\usepackage{amsfonts}       % font toán, ký hiệu bảng đen
+\usepackage{bm}             % \bm để bôi đậm ký hiệu Hy Lạp
+\usepackage[utf8]{inputenc} % nhập UTF-8 (pdfLaTeX)
+\usepackage[T5,T1]{fontenc} % T5 cho tiếng Việt (vntex), T1 cho Latin
+\usepackage{lmodern}
+\usepackage{url}            % gõ URL
+\usepackage{booktabs}       % bảng đẹp (\toprule, \midrule ...)
+\usepackage{nicefrac}       % phân số gọn 1/2
+\usepackage{microtype}      % vi chỉnh khoảng chữ
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{comment}
+\usepackage{forest}
+\usepackage[linesnumbered, ruled]{algorithm2e}
+\usepackage{algorithmic}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{diagbox}
+\usepackage{tikz}
+\usepackage{subcaption}
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\addbibresource{references.bib}
+% Hỗ trợ tiếng Việt (dấu, chia âm tiết). Đổi thành english nếu viết tiếng Anh.
+\usepackage[vietnamese]{babel}
+
+\renewcommand{\footnotesize}{\tiny}
+\newcommand{\mathbi}[1]{\boldsymbol{#1}}
+\newtheorem{proposition}{Proposition}
+
+%------------------------------------------------------------
+% THÔNG TIN TRANG BÌA — sửa các placeholder bên dưới
+%------------------------------------------------------------
+\title[Tiêu đề ngắn] % (tùy chọn) hiện ở thanh chân slide
+{\vspace*{1cm}\\\textbf{}\\\textbf{Tiêu đề báo cáo của bạn}}
+
+\subtitle{} % (tùy chọn) phụ đề
+
+\author[Họ tên] % (tùy chọn) hiện ở thanh chân slide
+{Supervisor: Tên giảng viên hướng dẫn\\
+Student: Họ và tên - MSSV}
+
+\institute[HCMUT] % (tùy chọn)
+{
+  Faculty of Computer Science and Engineering\\
+  Ho Chi Minh City University of Technology\\
+  Vietnam National University Ho Chi Minh City
+}
+
+\date{\today} % hoặc thay bằng "Tháng MM, YYYY"
+
+%------------------------------------------------------------
+% In mục lục (TOC) ở đầu mỗi section và tô sáng section hiện tại.
+% Đây là tính năng khung — giữ nguyên.
+%------------------------------------------------------------
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% Lệnh tiện ích: khung ảnh placeholder vẽ bằng TikZ (dùng khi chưa có hình thật).
+% Thay \figplaceholder{...}{...} bằng \includegraphics{images/ten-anh} khi có ảnh.
+\newcommand{\figplaceholder}[2]{%
+  \begin{tikzpicture}
+    \draw[thick, dashed, gray, fill=gray!10] (0,0) rectangle (#1,#2);
+    \node[gray] at (#1/2,#2/2) {\itshape Figure placeholder};
+  \end{tikzpicture}%
+}
+
+\begin{document}
+
+%------------------------------------------------------------
+% TRANG BÌA (dùng ảnh nền FrontBackground.pdf)
+%------------------------------------------------------------
+\setbeamertemplate{background canvas}{
+	\includegraphics[width=\paperwidth,height=\paperheight]{images/FrontBackground.pdf}
+}
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% Đặt ảnh nền Background.pdf cho tất cả các slide còn lại.
+\setbeamertemplate{background canvas}{
+	\includegraphics[width=\paperwidth,height=\paperheight]{images/Background.pdf}
+}
+
+%------------------------------------------------------------
+% Mục lục sau trang bìa
+%------------------------------------------------------------
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+%============================================================
+% ===== SLIDE MẪU: sao chép / xóa / sửa tùy nhu cầu =====
+%============================================================
+
+%---------------------------------------------------------
+\section{Section mẫu}
+%---------------------------------------------------------
+
+% -- SLIDE MẪU 1: danh sách (itemize) lồng nhau + alertblock --
+\begin{frame}{Slide danh sách}
+    \begin{itemize}
+        \item \textbf{Ý chính thứ nhất}
+        \begin{itemize}
+            \item Ý phụ giải thích thêm.
+            \item Ý phụ khác.
+        \end{itemize}
+
+        \vspace{0.3cm}
+
+        \item \textbf{Ý chính thứ hai}
+        \begin{itemize}
+            \item Chi tiết bổ sung.
+        \end{itemize}
+    \end{itemize}
+
+    \begin{alertblock}{Khối nhấn mạnh (alertblock)}
+        Dùng để làm nổi bật một câu hỏi hoặc kết luận quan trọng.
+    \end{alertblock}
+\end{frame}
+
+% -- SLIDE MẪU 2: khối (block) + công thức (equation) --
+\begin{frame}{Slide công thức}
+  \begin{block}{Khối nội dung (block)}
+    \begin{itemize}
+      \item Đặt định nghĩa, định lý hoặc diễn giải trong khối này.
+      \item Ví dụ một phương trình:
+      \begin{equation}
+        f(x) = \sum_{i=1}^{n} w_i x_i + b
+      \end{equation}
+      trong đó $w_i$ là trọng số và $b$ là hệ số tự do.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% -- SLIDE MẪU 3: hình ảnh (figure) --
+% Khi có ảnh thật: thay \figplaceholder{8}{4} bằng
+% \includegraphics[width=0.8\textwidth,keepaspectratio]{images/ten-anh.png}
+\begin{frame}{Slide hình ảnh}
+  \begin{figure}
+    \centering
+    \figplaceholder{8}{4}
+    \caption{Chú thích cho hình minh họa.}
+  \end{figure}
+\end{frame}
+
+% -- SLIDE MẪU 4: hai cột (columns) --
+\begin{frame}{Slide hai cột}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Cột trái đặt văn bản / gạch đầu dòng.
+        \item Phù hợp để mô tả kèm hình bên phải.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \figplaceholder{5}{3.5}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -- SLIDE MẪU 5: bảng (booktabs) --
+\begin{frame}{Slide bảng}
+  \begin{table}
+    \centering
+    \begin{tabular}{lcc}
+      \toprule
+      \textbf{Phương pháp} & \textbf{Độ chính xác} & \textbf{Thời gian} \\
+      \midrule
+      Baseline   & 82.1\% & 1.0x \\
+      Cải tiến A & 88.4\% & 1.2x \\
+      Cải tiến B & \textbf{90.7\%} & 1.5x \\
+      \bottomrule
+    \end{tabular}
+    \caption{Bảng so sánh mẫu (dùng gói booktabs).}
+  \end{table}
+\end{frame}
+
+%============================================================
+% ===== HẾT SLIDE MẪU =====
+%============================================================
+
+%---------------------------------------------------------
+\section{References}
+%---------------------------------------------------------
+\begin{frame}
+  \frametitle{Selected References}
+  \nocite{*} % liệt kê mọi mục trong references.bib (bỏ dòng này nếu chỉ muốn mục đã \cite)
+  \printbibliography
+\end{frame}
+
+%---------------------------------------------------------
+% SLIDE KẾT THÚC
+%---------------------------------------------------------
+\setbeamertemplate{footline}{}
+\begin{frame}
+    \centering
+    \vspace{1cm}
+    \textbf{\Huge{- THE END - }}\\
+    \vspace{0.2cm}
+    \textit{\Large{Thank you for your attention}}\\
+    \vspace{15pt}
+    Acknowledgements:\\
+    <lời cảm ơn của bạn>\\
+    \vspace{20pt}
+    Contact:\\
+    <email>@hcmut.edu.vn
+\end{frame}
+
+\end{document}
