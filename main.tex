@@ -13,6 +13,10 @@
 % Gói lệnh (packages). Biên dịch bằng pdfLaTeX.
 % Giữ nguyên bộ này để có sẵn công cụ cho hầu hết báo cáo.
 %------------------------------------------------------------
+% Lọc riêng cảnh báo vô hại của csquotes: encoding T5 (tiếng Việt) không có
+% "space factor codes" cho bộ theo dõi dấu câu — không ảnh hưởng bản in.
+\usepackage{silence}
+\WarningFilter{csquotes}{No space factor codes}
 \usepackage{amsmath}        % ký hiệu toán học, \mathbb ...
 \usepackage{amsfonts}       % font toán, ký hiệu bảng đen
 \usepackage{bm}             % \bm để bôi đậm ký hiệu Hy Lạp
@@ -22,7 +26,8 @@
 \usepackage{url}            % gõ URL
 \usepackage{booktabs}       % bảng đẹp (\toprule, \midrule ...)
 \usepackage{nicefrac}       % phân số gọn 1/2
-\usepackage{microtype}      % vi chỉnh khoảng chữ
+\usepackage[protrusion=false]{microtype} % vi chỉnh khoảng chữ (tắt protrusion:
+                            % font T5/tiếng Việt không có bảng protrusion → tránh cảnh báo)
 \usepackage{mathtools}
 \usepackage{multicol}
 \usepackage{comment}
@@ -37,10 +42,19 @@
 \usepackage{subcaption}
 \usepackage{dsfont}
 \usepackage{stmaryrd}
-\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\usepackage{csquotes}      % biblatex khuyến nghị (dùng chung với babel)
+\usepackage[style=authortitle,backend=biber,language=english]{biblatex}
 \addbibresource{references.bib}
+% biblatex/csquotes không có gói bản địa hóa cho tiếng Việt → dùng định nghĩa
+% tiếng Anh cho phần tài liệu tham khảo (các mục trong references.bib vốn tiếng Anh).
+\DeclareLanguageMapping{vietnamese}{english}
 % Hỗ trợ tiếng Việt (dấu, chia âm tiết). Đổi thành english nếu viết tiếng Anh.
 \usepackage[vietnamese]{babel}
+\DeclareQuoteAlias{english}{vietnamese} % dùng kiểu trích dẫn tiếng Anh cho ngữ cảnh tiếng Việt
+
+% Khai báo metadata PDF thủ công để hyperref không phải suy ra từ \title/\author
+% (tránh cảnh báo "Token not allowed in a PDF string" do \\ và ký tự tiếng Việt).
+\hypersetup{pdftitle={Tieu de bao cao}, pdfauthor={Ho va ten}}
 
 \renewcommand{\footnotesize}{\tiny}
 \newcommand{\mathbi}[1]{\boldsymbol{#1}}
@@ -50,12 +64,12 @@
 % THÔNG TIN TRANG BÌA — sửa các placeholder bên dưới
 %------------------------------------------------------------
 \title[Tiêu đề ngắn] % (tùy chọn) hiện ở thanh chân slide
-{\vspace*{1cm}\\\textbf{}\\\textbf{Tiêu đề báo cáo của bạn}}
+{\texorpdfstring{\vspace*{1cm}\\\textbf{}\\}{}\textbf{Tiêu đề báo cáo của bạn}}
 
 \subtitle{} % (tùy chọn) phụ đề
 
 \author[Họ tên] % (tùy chọn) hiện ở thanh chân slide
-{Supervisor: Tên giảng viên hướng dẫn\\
+{Supervisor: Tên giảng viên hướng dẫn\texorpdfstring{\\}{, }
 Student: Họ và tên - MSSV}
 
 \institute[HCMUT] % (tùy chọn)
