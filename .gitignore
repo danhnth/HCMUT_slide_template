@@ -16,3 +16,8 @@
 
 # Giữ main.pdf hay không tùy bạn — bỏ comment dòng dưới nếu muốn bỏ qua:
 *.pdf
+# NHƯNG luôn giữ ảnh nền trong images/ (nếu không, clone mới sẽ mất background)
+!images/*.pdf
+
+# Tooling local (agent sessions)
+.omo/

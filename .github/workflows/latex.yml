@@ -1,0 +1,26 @@
+# Tu dong bien dich main.pdf moi khi push / PR.
+# Thay the Overleaf: moi thanh vien sua file sections/ cua minh, push len,
+# vao tab Actions tai main.pdf ve xem — khong can cai LaTeX tren may.
+# chay tren public repo la free khong gioi han; private repo ~2000 phut/thang.
+name: Build LaTeX PDF
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile with latexmk + biber
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          compiler: latexmk
+          args: -pdf -interaction=nonstopmode -synctex=0
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-pdf
+          path: main.pdf
