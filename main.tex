@@ -105,18 +105,26 @@ Student: Họ và tên - MSSV}
 \begin{document}
 
 %------------------------------------------------------------
-% TRANG BÌA (dùng ảnh nền FrontBackground.pdf)
-%------------------------------------------------------------
+% TRANG BÌA (dùng ảnh nền FrontBackground.pdf nếu có).
+% \IfFileExists giúp clone mới vẫn biên dịch được ngay cả khi thiếu file nền.
+\IfFileExists{images/FrontBackground.pdf}{%
 \setbeamertemplate{background canvas}{
 	\includegraphics[width=\paperwidth,height=\paperheight]{images/FrontBackground.pdf}
+}}{%
+\setbeamertemplate{background canvas}{}%
+\PackageWarning{template}{Missing images/FrontBackground.pdf - using plain background}%
 }
 \begin{frame}[plain]
 \titlepage
 \end{frame}
 
-% Đặt ảnh nền Background.pdf cho tất cả các slide còn lại.
+% Đặt ảnh nền Background.pdf cho tất cả các slide còn lại (nếu có).
+\IfFileExists{images/Background.pdf}{%
 \setbeamertemplate{background canvas}{
 	\includegraphics[width=\paperwidth,height=\paperheight]{images/Background.pdf}
+}}{%
+\setbeamertemplate{background canvas}{}%
+\PackageWarning{template}{Missing images/Background.pdf - using plain background}%
 }
 
 %------------------------------------------------------------
